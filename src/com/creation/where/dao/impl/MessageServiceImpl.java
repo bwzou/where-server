@@ -22,7 +22,7 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public int addOneMessage(Message message) {
 		// TODO Auto-generated method stub
-		String sql="insert into chat(from_user_id,to_user_id,msg,voice,video,emotion,create_time,latitude,longitude) values(?,?,?,?,?,?,?,?,?)";
+		String sql="insert into message(from_user_id,to_user_id,msg,voice,video,emotion,create_time,latitude,longitude) values(?,?,?,?,?,?,?,?,?)";
 		int n =dbhelper.execOthers(sql,message.getFrom_user_id(), message.getTo_user_id(),message.getMsg(),message.getVideo()
 				,message.getVideo(),message.getEmotion(),message.getCreate_time(),message.getLatitude(),message.getLongitude());
 		dbhelper.closeAll();
@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public Message getOneMessage(String from_user_id, String to_user_id) {
 		// TODO Auto-generated method stub
-		String sql="select * from chat where from_user_id=? and to_user_id=? and is_read=0 order by create_time desc limit 1";
+		String sql="select * from message where from_user_id=? and to_user_id=? and is_read=0 order by create_time desc limit 1";
 		ResultSet rst=dbhelper.execQuery(sql, from_user_id,to_user_id);
 		
 		String sql2="update chat set is_read=1 where msg_id=?";

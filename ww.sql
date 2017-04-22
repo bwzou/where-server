@@ -1,155 +1,174 @@
-/*
-Navicat MySQL Data Transfer
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: 2017-04-22 17:07:26
+-- 服务器版本： 5.7.10-log
+-- PHP Version: 7.0.3
 
-Source Server         : localhost
-Source Server Version : 50710
-Source Host           : localhost:3306
-Source Database       : ww
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-Target Server Type    : MYSQL
-Target Server Version : 50710
-File Encoding         : 65001
 
-Date: 2017-04-09 15:37:43
-*/
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-SET FOREIGN_KEY_CHECKS=0;
+--
+-- Database: `ww`
+--
 
--- ----------------------------
--- Table structure for attention
--- ----------------------------
-DROP TABLE IF EXISTS `attention`;
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `attention`
+--
+
 CREATE TABLE `attention` (
   `user_id` int(11) NOT NULL,
-  `grid_id` int(11) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
-  `label` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  `grid_id` int(11) NOT NULL,
+  `remarks` varchar(50) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of attention
--- ----------------------------
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for chat
--- ----------------------------
-DROP TABLE IF EXISTS `chat`;
-CREATE TABLE `chat` (
-  `msg_id` int(11) NOT NULL AUTO_INCREMENT,
+--
+-- 表的结构 `comment`
+--
+
+CREATE TABLE `comment` (
+  `share_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `content` varchar(255) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `footprint`
+--
+
+CREATE TABLE `footprint` (
+  `foot_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `footprint`
+--
+
+INSERT INTO `footprint` (`foot_id`, `user_id`, `latitude`, `longitude`, `comment`, `picture`, `create_time`) VALUES
+(1, 5, 22.757704, 113.61433, '这次可以了吧', NULL, '2017-04-23 00:09:39'),
+(2, 5, 22.757731, 113.614369, '测试', NULL, '2017-04-23 00:37:15');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `friend`
+--
+
+CREATE TABLE `friend` (
+  `user_id1` int(11) NOT NULL,
+  `user_id2` int(11) DEFAULT NULL,
+  `remark` varchar(50) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `grid`
+--
+
+CREATE TABLE `grid` (
+  `grid_id` int(11) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `message`
+--
+
+CREATE TABLE `message` (
+  `msg_id` int(11) NOT NULL,
   `from_user_id` int(11) DEFAULT NULL,
   `to_user_id` int(11) DEFAULT NULL,
   `msg` varchar(255) DEFAULT NULL,
   `voice` varchar(255) DEFAULT NULL,
   `video` varchar(255) DEFAULT NULL,
   `emotion` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `latitude` double DEFAULT NULL,
   `longitude` double DEFAULT NULL,
-  `is_read` int(2) DEFAULT '0' COMMENT '消息是否已读：1代表已读，0代表未读',
-  PRIMARY KEY (`msg_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of chat
--- ----------------------------
-INSERT INTO `chat` VALUES ('1', '5', '13', '发给他[笑脸]', null, null, null, '2017-04-08 10:25:39', null, null, '1');
-INSERT INTO `chat` VALUES ('2', '5', '13', '刚刚给[瞌睡]', null, null, null, '2017-04-08 13:25:45', '23', '114', '1');
-INSERT INTO `chat` VALUES ('3', '5', '13', '发广告[笑脸]', null, null, null, '2017-04-09 07:25:54', '22.75776', '113.61438', '1');
-INSERT INTO `chat` VALUES ('4', '5', '13', '副局[笑脸]', null, null, null, '2017-04-09 10:26:00', '22.75776', '113.61438', '1');
-INSERT INTO `chat` VALUES ('5', '5', '13', '发句号', null, null, null, '2017-04-09 12:58:34', '22.257752', '113.214378', '1');
-INSERT INTO `chat` VALUES ('6', '5', '13', '赶紧结婚', null, null, null, null, '22.757752', '113.614378', '1');
-INSERT INTO `chat` VALUES ('7', '5', '13', '国际会计[刺瞎]', null, null, null, null, '22.757752', '113.614378', '1');
-
--- ----------------------------
--- Table structure for comment
--- ----------------------------
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
-  `msg_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `label` varchar(255) DEFAULT NULL
+  `is_read` int(2) DEFAULT '0' COMMENT '消息是否已读：1代表已读，0代表未读'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of comment
--- ----------------------------
+--
+-- 转存表中的数据 `message`
+--
 
--- ----------------------------
--- Table structure for friend
--- ----------------------------
-DROP TABLE IF EXISTS `friend`;
-CREATE TABLE `friend` (
-  `user_id1` int(11) NOT NULL,
-  `user_id2` int(11) DEFAULT NULL,
-  `user_id3` int(11) DEFAULT NULL,
-  `label` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id1`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `message` (`msg_id`, `from_user_id`, `to_user_id`, `msg`, `voice`, `video`, `emotion`, `create_time`, `latitude`, `longitude`, `is_read`) VALUES
+(1, 5, 13, '发给他[笑脸]', NULL, NULL, NULL, '2017-04-08 10:25:39', NULL, NULL, 1),
+(2, 5, 13, '刚刚给[瞌睡]', NULL, NULL, NULL, '2017-04-08 13:25:45', 23, 114, 1),
+(3, 5, 13, '发广告[笑脸]', NULL, NULL, NULL, '2017-04-09 07:25:54', 22.75776, 113.61438, 1),
+(4, 5, 13, '副局[笑脸]', NULL, NULL, NULL, '2017-04-09 10:26:00', 22.75776, 113.61438, 1),
+(5, 5, 13, '发句号', NULL, NULL, NULL, '2017-04-09 12:58:34', 22.257752, 113.214378, 1),
+(6, 5, 13, '赶紧结婚', NULL, NULL, NULL, NULL, 22.757752, 113.614378, 1),
+(7, 5, 13, '国际会计[刺瞎]', NULL, NULL, NULL, NULL, 22.757752, 113.614378, 1);
 
--- ----------------------------
--- Records of friend
--- ----------------------------
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for grid
--- ----------------------------
-DROP TABLE IF EXISTS `grid`;
-CREATE TABLE `grid` (
-  `grid_id` int(11) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- 表的结构 `share`
+--
 
--- ----------------------------
--- Records of grid
--- ----------------------------
-
--- ----------------------------
--- Table structure for share
--- ----------------------------
-DROP TABLE IF EXISTS `share`;
 CREATE TABLE `share` (
-  `msg_id` int(11) NOT NULL,
+  `share_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `grid_id` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `active_time` datetime DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `pictures` varchar(255) DEFAULT NULL,
   `video` varchar(255) DEFAULT NULL,
   `like` int(11) DEFAULT NULL,
   `like_id` int(11) DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`msg_id`)
+  `sort` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of share
--- ----------------------------
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for thumb_up
--- ----------------------------
-DROP TABLE IF EXISTS `thumb_up`;
+--
+-- 表的结构 `thumb_up`
+--
+
 CREATE TABLE `thumb_up` (
-  `msg_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`msg_id`)
+  `share_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of thumb_up
--- ----------------------------
+-- --------------------------------------------------------
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
+--
+-- 表的结构 `user`
+--
+
 CREATE TABLE `user` (
-  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
   `nickname` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `where_name` varchar(255) DEFAULT NULL,
@@ -161,20 +180,103 @@ CREATE TABLE `user` (
   `signature` varchar(255) DEFAULT NULL,
   `reminder` varchar(255) DEFAULT NULL,
   `remind_time_from` datetime DEFAULT NULL,
-  `remind_time_to` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  `remind_time_to` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('2', 'zou', '123', null, null, null, '8529538', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('5', 'zou', '123', null, null, null, '123', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('6', 'zou', '123', null, null, null, '8529547', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('7', 'zou', '123', null, null, null, '8529522', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('8', 'zou', '123', null, null, null, '8529536', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('9', 'zou', '123', null, null, null, '8529552', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('10', 'zou', '123', null, null, null, '8529541', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('11', 'zou', '123', null, null, null, '8529845', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('12', 'zou', '123', null, null, null, '8529588', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('13', 'zou', '123', null, null, null, '123456', null, null, null, null, null, null);
+--
+-- 转存表中的数据 `user`
+--
+
+INSERT INTO `user` (`user_id`, `nickname`, `password`, `where_name`, `gender`, `avatar`, `phone_number`, `area`, `two_dimension_code`, `signature`, `reminder`, `remind_time_from`, `remind_time_to`) VALUES
+(2, 'zou', '123', NULL, NULL, NULL, '8529538', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'zou', '123', NULL, NULL, NULL, '123', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 'zou', '123', NULL, NULL, NULL, '8529547', NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'zou', '123', NULL, NULL, NULL, '8529522', NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 'zou', '123', NULL, NULL, NULL, '8529536', NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'zou', '123', NULL, NULL, NULL, '8529552', NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'zou', '123', NULL, NULL, NULL, '8529541', NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'zou', '123', NULL, NULL, NULL, '8529845', NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'zou', '123', NULL, NULL, NULL, '8529588', NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'zou', '123', NULL, NULL, NULL, '123456', NULL, NULL, NULL, NULL, NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `attention`
+--
+ALTER TABLE `attention`
+  ADD PRIMARY KEY (`user_id`,`grid_id`);
+
+--
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`share_id`,`user_id`);
+
+--
+-- Indexes for table `footprint`
+--
+ALTER TABLE `footprint`
+  ADD PRIMARY KEY (`foot_id`);
+
+--
+-- Indexes for table `friend`
+--
+ALTER TABLE `friend`
+  ADD PRIMARY KEY (`user_id1`);
+
+--
+-- Indexes for table `grid`
+--
+ALTER TABLE `grid`
+  ADD PRIMARY KEY (`grid_id`),
+  ADD KEY `latitude` (`latitude`,`longitude`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`msg_id`);
+
+--
+-- Indexes for table `share`
+--
+ALTER TABLE `share`
+  ADD PRIMARY KEY (`share_id`);
+
+--
+-- Indexes for table `thumb_up`
+--
+ALTER TABLE `thumb_up`
+  ADD PRIMARY KEY (`share_id`,`user_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- 在导出的表使用AUTO_INCREMENT
+--
+
+--
+-- 使用表AUTO_INCREMENT `footprint`
+--
+ALTER TABLE `footprint`
+  MODIFY `foot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- 使用表AUTO_INCREMENT `message`
+--
+ALTER TABLE `message`
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- 使用表AUTO_INCREMENT `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

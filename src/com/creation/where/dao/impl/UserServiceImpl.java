@@ -7,6 +7,7 @@ import java.util.List;
 import com.creation.where.dao.UserService;
 import com.creation.where.po.User;
 import com.creation.where.util.DBHelper;
+import com.creation.where.util.Log;
 
 public class UserServiceImpl implements UserService {
 	private DBHelper dbhelper = new DBHelper();

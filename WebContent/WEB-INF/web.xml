@@ -19,7 +19,7 @@
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/LoginController</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>MessageController</display-name>
     <servlet-name>MessageController</servlet-name>
@@ -28,5 +28,15 @@
   <servlet-mapping>
     <servlet-name>MessageController</servlet-name>
     <url-pattern>/MessageController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FootprintController</display-name>
+    <servlet-name>FootprintController</servlet-name>
+    <servlet-class>com.creation.where.controller.FootprintController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FootprintController</servlet-name>
+    <url-pattern>/FootprintController</url-pattern>
   </servlet-mapping>
 </web-app>
