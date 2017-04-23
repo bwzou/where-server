@@ -32,11 +32,11 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public Message getOneMessage(String from_user_id, String to_user_id) {
 		// TODO Auto-generated method stub
-		String sql="select * from message where from_user_id=? and to_user_id=? and is_read=0 order by create_time desc limit 1";
+		String sql="select * from message where from_user_id=? and to_user_id=? and is_read=0 order by create_time asc limit 1";
 		ResultSet rst=dbhelper.execQuery(sql, from_user_id,to_user_id);
 		
-		String sql2="update chat set is_read=1 where msg_id=?";
-		Message message=new Message();
+		String sql2="update message set is_read=1 where msg_id=?";
+		Message message=new Message();    //直接使用有问题
 		try {
 			while(rst.next()){
 				message.setMsg_id(rst.getInt("msg_id"));
@@ -51,7 +51,8 @@ public class MessageServiceImpl implements MessageService{
 				message.setLongitude(rst.getDouble("longitude"));
 			}
 			rst.close();
-			int n=dbhelper.execOthers(sql2, message.getMsg_id());
+			if(message.getMsg_id()!=0)
+				dbhelper.execOthers(sql2, message.getMsg_id());
 			return message;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

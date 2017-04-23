@@ -39,4 +39,14 @@
     <servlet-name>FootprintController</servlet-name>
     <url-pattern>/FootprintController</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>TogetherController</display-name>
+    <servlet-name>TogetherController</servlet-name>
+    <servlet-class>com.creation.where.controller.TogetherController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TogetherController</servlet-name>
+    <url-pattern>/TogetherController</url-pattern>
+  </servlet-mapping>
 </web-app>
