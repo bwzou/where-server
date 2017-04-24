@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2017-04-22 17:07:26
+-- Generation Time: 2017-04-24 12:27:47
 -- 服务器版本： 5.7.10-log
 -- PHP Version: 7.0.3
 
@@ -128,7 +128,8 @@ INSERT INTO `message` (`msg_id`, `from_user_id`, `to_user_id`, `msg`, `voice`, `
 (4, 5, 13, '副局[笑脸]', NULL, NULL, NULL, '2017-04-09 10:26:00', 22.75776, 113.61438, 1),
 (5, 5, 13, '发句号', NULL, NULL, NULL, '2017-04-09 12:58:34', 22.257752, 113.214378, 1),
 (6, 5, 13, '赶紧结婚', NULL, NULL, NULL, NULL, 22.757752, 113.614378, 1),
-(7, 5, 13, '国际会计[刺瞎]', NULL, NULL, NULL, NULL, 22.757752, 113.614378, 1);
+(7, 5, 13, '国际会计[刺瞎]', NULL, NULL, NULL, NULL, 22.757752, 113.614378, 1),
+(8, 5, 13, '今天下雨了', NULL, NULL, NULL, NULL, 22.75769, 113.61436, 1);
 
 -- --------------------------------------------------------
 
@@ -160,6 +161,32 @@ CREATE TABLE `thumb_up` (
   `share_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `together`
+--
+
+CREATE TABLE `together` (
+  `together_id` int(11) NOT NULL,
+  `what_time` datetime NOT NULL,
+  `destination` varchar(255) NOT NULL,
+  `event` varchar(255) NOT NULL,
+  `people_number` int(11) DEFAULT NULL,
+  `transportation` varchar(255) DEFAULT NULL,
+  `cost` double DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `join_user` varchar(255) DEFAULT NULL,
+  `join_number` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `together`
+--
+
+INSERT INTO `together` (`together_id`, `what_time`, `destination`, `event`, `people_number`, `transportation`, `cost`, `user_id`, `join_user`, `join_number`) VALUES
+(1, '2017-05-11 14:50:00', '北京故宫', '毕业啦，一起去旅游吧', 0, '飞机', 1200, 5, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -253,6 +280,12 @@ ALTER TABLE `thumb_up`
   ADD PRIMARY KEY (`share_id`,`user_id`);
 
 --
+-- Indexes for table `together`
+--
+ALTER TABLE `together`
+  ADD PRIMARY KEY (`together_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -271,7 +304,12 @@ ALTER TABLE `footprint`
 -- 使用表AUTO_INCREMENT `message`
 --
 ALTER TABLE `message`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- 使用表AUTO_INCREMENT `together`
+--
+ALTER TABLE `together`
+  MODIFY `together_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `user`
 --
